@@ -1,0 +1,76 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'com.huawei.agconnect'
+
+}
+
+android {
+    namespace 'com.hms.demoandroid.mapdatabindingdemo'
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "com.hms.demoandroid.mapdatabindingdemo"
+        minSdk 24
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        release {
+            // Signing certificate.
+            storeFile file("key.jks")
+            // Key store password.
+            storePassword "key123"
+            // Alias.
+            keyAlias "key"
+            // Key password.
+            keyPassword "key123"
+            v2SigningEnabled true
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            resValue "string", "API_KEY", "DAEDAAK5ap53/c8Zwgu97N4eIc+438GqQ7KUEz9owJlTxBE5xqbqzb4VfCWe09Ggzo5/kRFWyFtZtbGMtBuHTROArzThZgbV3sW9ew=="
+        }
+        debug{
+            signingConfig signingConfigs.release
+            debuggable true
+            minifyEnabled false
+            resValue "string", "API_KEY", "DAEDAAK5ap53/c8Zwgu97N4eIc+438GqQ7KUEz9owJlTxBE5xqbqzb4VfCWe09Ggzo5/kRFWyFtZtbGMtBuHTROArzThZgbV3sW9ew=="
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    buildFeatures{
+        dataBinding true
+        viewBinding true
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.8.0'
+    kapt "com.android.databinding:compiler:3.1.4"
+    implementation 'com.huawei.hms:maps:6.9.0.300'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+}
